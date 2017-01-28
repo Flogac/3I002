@@ -37,4 +37,11 @@ public class Case {
 		return false;
 	}
 	
+	public boolean sameCase(Case b){
+		if(abs == b.abs && ord == b.ord){
+			return true;
+		}
+		return false;
+	}
+	
 }
