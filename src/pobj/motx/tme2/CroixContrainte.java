@@ -15,8 +15,6 @@ public class CroixContrainte implements IContrainte {
 	
 	@Override
 	public int reduce(GrillePotentiel grille) {
-		Mot mot1 = grille.getGrilleMots().getMots().get(m1);
-		Mot mot2 = grille.getGrilleMots().getMots().get(m2);
 		Dictionnaire DicoM1 = grille.getMotsPot().get(m1);
 		Dictionnaire DicoM2 = grille.getMotsPot().get(m2);
 		EnsembleLettre l1 = DicoM1.lettrePossible(c1);
