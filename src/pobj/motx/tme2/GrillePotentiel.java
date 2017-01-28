@@ -12,6 +12,7 @@ public class GrillePotentiel {
 	private GrilleMots grilleMot;
 	private Dictionnaire dicoMot;
 	private List<Dictionnaire> motsPot = new ArrayList<Dictionnaire>();
+	private List<IContrainte> contraintes = new ArrayList<IContrainte>() ;
 	
 	public GrillePotentiel(GrilleMots grille, Dictionnaire dico){
 		grilleMot = grille;
@@ -147,6 +148,11 @@ public class GrillePotentiel {
 			nouveauxMots.add( motsPot.get(i).copy() );
 		}
 		return new GrillePotentiel( nouvelleGrille, nouveauDico , nouveauxMots  );
+		
+	}
+	
+	private boolean propage(){
+		return false;
 		
 	}
 	
