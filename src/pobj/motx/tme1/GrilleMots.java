@@ -72,5 +72,20 @@ public class GrilleMots {
 		return retour.toString();
 	}
 
+	/**
+	 * 
+	 * @param m
+	 * @param soluce
+	 * @return
+	 */
+	public GrilleMots fixer(int m, String soluce){
+		Grille nouvelleGrille = grille.copy();
+		Mot lemot = this.getMots().get(m);
+		for( int i  = 0 ; i < lemot.size() ; i ++ ){
+			nouvelleGrille.getCase(lemot.getCase(i).getLig() , lemot.getCase(i).getLig()).setChar(soluce.charAt(i));
+		}
+		return new GrilleMots( nouvelleGrille );
+		
+	}
 	
 }

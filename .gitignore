@@ -48,3 +48,6 @@ Temporary Items
 
 # Fichiers compilés
 *.class
+
+# Fichiers grilles
+*.grl

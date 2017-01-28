@@ -31,4 +31,9 @@ public class Mot {
 	public List<Case> getLettres(){
 		return lettres;
 	}
+	
+	public Case getCase( int numero){
+		return lettres.get(numero);
+	}
+
 }
