@@ -166,4 +166,15 @@ public class GrillePotentiel {
 		
 	}
 	
+	public void detextion_contraintes(){
+		IContrainte retour = null;
+		for( int i = 0 ; i < grilleMot.getNbHorizontal() ; i++ ){
+			for( int j = grilleMot.getNbHorizontal() ; j < grilleMot.getMots().size() ; j++ ){
+				retour = grilleMot.getMots().get(i).intersection( grilleMot.getMots().get(j) , i , j );
+				if( retour != null ) contraintes.add(retour);
+				retour = null;
+			}
+		}
+	}
+	
 }

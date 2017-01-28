@@ -3,6 +3,9 @@ package pobj.motx.tme1;
 import java.util.ArrayList;
 import java.util.List;
 
+import pobj.motx.tme2.CroixContrainte;
+import pobj.motx.tme2.IContrainte;
+
 public class Mot {
 	private List<Case> lettres;
 	
@@ -34,6 +37,26 @@ public class Mot {
 	
 	public Case getCase( int numero){
 		return lettres.get(numero);
+	}
+
+	/**
+	 * Le premier mot est horizontal, le second vertical.
+	 * On vérifie l'intersection des deux et on rajoute la contrainte correspondant.
+	 * @param mot
+	 * @return
+	 */
+	public IContrainte intersection(Mot mot , int indice_Mot_h , int indice_Mot_v) {
+		List<Case> lettres_h = this.lettres;
+		int ligne_h = lettres_h.get(0).getLig();
+		List<Case> lettres_v = mot.getLettres();
+		int colonne_v = lettres_v.get(0).getCol();
+		for( int i = lettres_h.get(0).getCol() ; i < lettres_h.get(0).getCol() + lettres_h.size() ; i++ ){
+			for( int j = lettres_v.get(0).getLig() ; j < lettres_v.get(0).getLig() + lettres_v.size() ; j++ ){
+				if( ligne_h == j && colonne_v == i ) 
+					return new CroixContrainte( indice_Mot_h , i , indice_Mot_v , j );
+			}
+		}
+		return null;
 	}
 
 }
