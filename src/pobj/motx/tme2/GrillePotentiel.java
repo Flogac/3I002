@@ -104,7 +104,7 @@ public class GrillePotentiel {
 		String leMot;
 		for( int i = 0 ; i < tailleDico ; i++ ){
 			leMot = dico.get(i);
-			while( longueurMaxMotDico <= leMot.length() ){
+			while( longueurMaxMotDico < leMot.length() ){
 				retour.add( new Dictionnaire() );
 				longueurMaxMotDico++;
 				//System.out.println("yolo"+longueurMaxMotDico);
