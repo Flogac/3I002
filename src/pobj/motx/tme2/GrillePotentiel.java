@@ -71,15 +71,15 @@ public class GrillePotentiel {
 	private void filtreParLettreDico(){
 		List<Mot> mots = grilleMot.getMots();
 		for(int i = 0; i < mots.size(); i++){
-			System.out.println("le nombre de mots "+mots.size());
-			System.out.println("le nombre de mots dans le dico "+motsPot.get(i).size());
+			/*System.out.println("le nombre de mots "+mots.size());
+			System.out.println("le nombre de mots dans le dico "+motsPot.get(i).size());*/
 			List<Case> lettres = mots.get(i).getLettres();
-			System.out.println("la taille d'un mot "+lettres.size());
+			/*System.out.println("la taille d'un mot "+lettres.size());
 			if(lettres.size() == motsPot.get(i).get(i).length()){
 				System.out.println("bonne taille");
 			} else {
 				System.out.println("pas bonne taille");
-			}
+			}*/
 			for(int j = 0; j < lettres.size(); j++){
 				if(lettres.get(j).getChar()!=' '){
 					motsPot.get(i).filtreParLettre(lettres.get(j).getChar(), j);
