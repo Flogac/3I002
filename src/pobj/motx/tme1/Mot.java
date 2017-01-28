@@ -1,14 +1,16 @@
 package pobj.motx.tme1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mot {
 	private List<Case> lettres;
 	
-	public Mot(List<Case> lesLettres) {
-		lettres = lesLettres;
+	
+	public Mot(){
+		lettres = new ArrayList<Case>();
 	}
-
+	
 	public String toString() {
 		StringBuilder retour = new StringBuilder();
 		int taille = this.size();
@@ -19,7 +21,11 @@ public class Mot {
 	}
 	
 	public int size(){
-		return ((CharSequence) lettres).length();
+		return lettres.size();
+	}
+	
+	public void addCases(Case c){
+		lettres.add(c);
 	}
 	
 }

@@ -15,7 +15,7 @@ public class GrilleMotsTest {
 		// 3 mots
 		Grille gr = GrilleLoader.loadGrille("data/easy.grl");
 
-		// System.out.println(gr);
+		//System.out.println(gr);
 
 		GrilleMots grille = new GrilleMots(gr);
 
@@ -45,9 +45,11 @@ public class GrilleMotsTest {
 	public void testGrilleEnonce() {
 		Grille gr = GrilleLoader.loadGrille("data/enonce.grl");
 
-		// System.out.println(gr);
+		//System.out.println(gr);
 
 		GrilleMots grille = new GrilleMots(gr);
+		
+		System.out.println(gr.toString());
 
 		assertEquals(7, grille.getNbHorizontal());
 		assertEquals(12, grille.getMots().size());
@@ -66,7 +68,7 @@ public class GrilleMotsTest {
 		// avec des lettres placees
 		Grille gr = GrilleLoader.loadGrille("data/easy2.grl");
 
-		// System.out.println(gr);
+		//System.out.println(gr);
 
 		GrilleMots grille = new GrilleMots(gr);
 
@@ -83,7 +85,7 @@ public class GrilleMotsTest {
 		assertEquals(5, gr.nbCol());
 		assertEquals(6, gr.nbLig());
 
-		// System.out.println(gr);
+		System.out.println(gr);
 
 		GrilleMots grille = new GrilleMots(gr);
 
@@ -166,6 +168,7 @@ public class GrilleMotsTest {
 
 		for (int i = 0; i < expected.length; i++) {
 			assertEquals(expected[i], grille.getMots().get(i).size());
+			
 		}
 		System.out.println("Succès tests sur Grille large 2");
 	}

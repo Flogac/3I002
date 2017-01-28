@@ -4,22 +4,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GrilleMots {
-
 	private List<Mot> mots;
-	Grille leGrill;
-	int nbHorizontal = 0;
-	int nbVertical = 0;
+	private Grille grille;
+	private int nbMotHoriz;
 	
 	public GrilleMots (Grille grille){
-		leGrill = grille;
-		for( int i = 0 ; i < leGrill.nbCol() ; i++ ){
-			chercheMots(getCol(i));
-		}
-		nbVertical = mots.size();
-		for( int i = 0 ; i < leGrill.nbLig() ; i++ ){
+		mots = new ArrayList<Mot>();
+		this.grille = grille;
+		for (int i = 0; i < grille.nbLig(); i++){
 			chercheMots(getLig(i));
 		}
-		nbHorizontal = mots.size() - nbVertical;
+		nbMotHoriz = mots.size();
+		for (int j = 0; j < grille.nbCol(); j++){
+			chercheMots(getCol(j));
+		}
+	}
+	
+	
+	private List<Case> getLig (int lig){
+		List<Case> cases = new ArrayList<Case>();
+		for(int j = 0 ; j < grille.nbCol() ; j++){
+			cases.add(grille.getCase(lig, j));
+		}
+		return cases;
+	}
+	
+	private List<Case> getCol (int col){
+		List<Case> cases = new ArrayList<Case>();
+		for(int i = 0 ; i < grille.nbLig() ; i++){
+			cases.add(grille.getCase(i, col));
+		}
+		return cases;
+	}
+	
+	private void chercheMots(List<Case> cases){
+		Mot motInit = new Mot();
+		Case c ;
+		for(int i = 0; i < cases.size(); i++){
+			c = cases.get(i);
+			if(c.isPleine() == false){
+				motInit.addCases(c);
+			}else{
+				if(motInit.size()>1){
+					mots.add(motInit);
+				}
+				motInit = new Mot();
+			}
+		}
+		if(motInit.size()>1){
+			mots.add(motInit);
+		}
 	}
 	
 	public List<Mot> getMots(){
@@ -27,47 +61,16 @@ public class GrilleMots {
 	}
 	
 	public int getNbHorizontal(){
-		return nbHorizontal;
-	}
-	
-	public int getNbVertical(){
-		return nbVertical;
-	}
-	
-	private List<Case> getLig (int lig){
-		List<Case> retour = new ArrayList<Case>();
-		for( int i = 0 ; i < leGrill.nbCol() ; i++ )
-			retour.add( leGrill.getCase(lig, i));
-		return retour;
-	}
-	
-	private List<Case> getCol (int col){
-		List<Case> retour = new ArrayList<Case>();
-		for( int i = 0 ; i < leGrill.nbLig() ; i++ )
-			retour.add( leGrill.getCase(i, col));
-		return retour;
-	}
-	
-	private void chercheMots(List<Case> cases) {
-		int tailleMot = 0;
-		Case temp;
-		List<Case> retour = new ArrayList<Case>();
-		for( int i = 1 ; i < cases.size() ; i++ ){
-			temp = cases.get(i);
-			if( temp.getChar() != '*' ){ 
-				tailleMot++;
-				retour.add(temp);
-			}else{
-				if( tailleMot >= 2 ) mots.add( new Mot( retour ) );
-				tailleMot=0;
-				retour.clear();
-			}
-		}
+		return nbMotHoriz;
 	}
 	
 	public String toString(){
 		StringBuilder retour = new StringBuilder();
-		for( int i = 0 ; i < mots.size() ; i++ ) retour.append( mots.get(i).toString() + '\n');
+		for (int i = 0; i < mots.size(); i++){
+			retour.append(mots.get(i));
+		}
 		return retour.toString();
 	}
+
+	
 }
