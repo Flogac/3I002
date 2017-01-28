@@ -103,7 +103,7 @@ public class Dictionnaire {
 	}
 	
 	public int filtreParLettre(char c, int i){
-		
+		return 10;
 	}
 	
 }
