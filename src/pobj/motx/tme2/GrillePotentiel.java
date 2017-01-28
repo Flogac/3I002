@@ -165,16 +165,11 @@ public class GrillePotentiel {
 		}
 		
 	}
-<<<<<<< HEAD
-	
-
-=======
 
 	public List<IContrainte> getContraintes(){
 		return contraintes;
 	}
 	
->>>>>>> origin/master
 	public void detextion_contraintes(){
 		IContrainte retour = null;
 		for( int i = 0 ; i < grilleMot.getNbHorizontal() ; i++ ){
@@ -185,14 +180,8 @@ public class GrillePotentiel {
 			}
 		}
 	}
-<<<<<<< HEAD
 
 
-
-		
-
-=======
->>>>>>> origin/master
 	public GrilleMots getGrilleMots(){
 		return grilleMot;
 	}
