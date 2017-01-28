@@ -30,7 +30,7 @@ public class GrillePotentiel {
 	}
 
 	/**
-	 * Initialise MotsPot avec les mots potenciels en fonction de
+	 * Initialise MotsPot avec les mots potentiels en fonction de
 	 * leurs tailles.
 	 * @param dico
 	 */
