@@ -43,6 +43,7 @@ public class GrillePotentiel {
 		// On passe un par un tous les mots
 		for( int i = 0 ; i < listeMots.size() ; i++ ){
 			motEnCoursTaille = listeMots.get(i).size();
+			motsPot.add( null );
 			if(motEnCoursTaille <= tailleMotMax){
 				/* On recupere le mot d'indice i listeMots.get(i)
 				 * On recupere sa taille listeMots.get(i).size()
@@ -51,10 +52,8 @@ public class GrillePotentiel {
 				 * motsTaille.get(listeMots.get(i).size() - 1 )
 				 * On le met a  l'indice i dans motsPot
 				*/
-				motsPot.add(motsTaille.get(motEnCoursTaille  - 1 ));
-			} else { 
-				motsPot.add( null );
-			}
+				motsPot.set(i, motsTaille.get(motEnCoursTaille  - 1 ).copy());
+			} 
 		}
 	}
 	
