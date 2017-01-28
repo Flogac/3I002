@@ -28,4 +28,8 @@ public class Mot {
 		lettres.add(c);
 	}
 	
+	public Case getCase( int numero){
+		return lettres.get(numero);
+	}
+	
 }
