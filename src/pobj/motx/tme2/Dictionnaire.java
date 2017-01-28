@@ -123,4 +123,42 @@ public class Dictionnaire {
 		
 	}
 	
+	
+	/**
+	 * Cette methode cree un ensemble de lettre possible en fonction
+	 * du dictionnaire de mot potentiel pour un mot de la grille et de 
+	 * la position de la lettre dans ce mot.
+	 * @param position de la lettre dans le mot
+	 * @return l'ensemble de lettre potentiel.
+	 */
+	public EnsembleLettre lettrePossible(int position){
+		EnsembleLettre ens = new EnsembleLettre();
+		for(int i = 0 ; i < mots.size() ; i++){
+			ens.add(mots.get(i).charAt(position));
+		}
+		return ens;
+	}
+	
+	/**
+	 * a partir de l'ensemble trouve dans la methode precedente 
+	 * qui aura ete purge par la methode reduce dans CroixContrainte
+	 * on va pouvoir filtrer le dictionnaire du mot en question 
+	 * @param index permet de trouver le dictionnaire correspondant au mot.
+	 * @param ens l'ensemble des lettres potentiel du mot.
+	 * @return le nombre de mots supprime dans le dictionnaire.
+	 */
+	public int filtrerParEns(int index, EnsembleLettre ens){
+		List<String> cible = new ArrayList<>();
+		int cpt = 0;
+		for (String mot : mots){
+			if(ens.contains(mot.charAt(index)) == true){
+				cible.add(mot);
+			} else {
+				cpt++;
+			}
+		}
+		mots = cible;
+		return cpt;
+	}
+	
 }
