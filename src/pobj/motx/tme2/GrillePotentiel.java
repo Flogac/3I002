@@ -26,6 +26,7 @@ public class GrillePotentiel {
 		System.out.println( grille.getMots().size());
 		dicoMot = dico;
 		this.motsPot = motsPot;
+		filtreParLettreDico();
 	}
 
 	/**

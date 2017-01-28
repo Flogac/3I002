@@ -82,7 +82,7 @@ public class GrilleMots {
 		Grille nouvelleGrille = grille.copy();
 		Mot lemot = this.getMots().get(m);
 		for( int i  = 0 ; i < lemot.size() ; i ++ ){
-			nouvelleGrille.getCase(lemot.getCase(i).getLig() , lemot.getCase(i).getLig()).setChar(soluce.charAt(i));
+			nouvelleGrille.getCase(lemot.getCase(i).getLig() , lemot.getCase(i).getCol()).setChar(soluce.charAt(i));
 		}
 		return new GrilleMots( nouvelleGrille );
 		
