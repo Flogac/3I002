@@ -156,4 +156,8 @@ public class GrillePotentiel {
 		
 	}
 	
+	public GrilleMots getGrilleMots(){
+		return grilleMot;
+	}
+	
 }
