@@ -19,6 +19,13 @@ public class GrillePotentiel {
 		initialisationDomaineDico( dicoMot );
 	}
 
+	public GrillePotentiel(GrilleMots grille, Dictionnaire dico , List<Dictionnaire> motsPot ){
+		grilleMot = grille;
+		System.out.println( grille.getMots().size());
+		dicoMot = dico;
+		this.motsPot = motsPot;
+	}
+
 	/**
 	 * Initialise MotsPot avec les mots potenciels en fonction de
 	 * leurs tailles.
@@ -93,6 +100,22 @@ public class GrillePotentiel {
 		return motsPot;
 	}
 	
-	
+	/**
+	 * 
+	 * @param m
+	 * @param soluce
+	 * @return
+	 */
+	public GrillePotentiel fixer(int m, String soluce){
+		Dictionnaire nouveauDico = dicoMot.copy() ;
+		GrilleMots nouvelleGrille = grilleMot.fixer( m , soluce );
+		List<Dictionnaire> nouveauxMots = new ArrayList<Dictionnaire>();
+		
+		for( int i = 0 ; i < motsPot.size() ; i++ ){
+			nouveauxMots.add( motsPot.get(i).copy() );
+		}
+		return new GrillePotentiel( nouvelleGrille, nouveauDico , nouveauxMots  );
+		
+	}
 	
 }

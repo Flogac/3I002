@@ -72,6 +72,12 @@ public class GrilleMots {
 		return retour.toString();
 	}
 
+	/**
+	 * 
+	 * @param m
+	 * @param soluce
+	 * @return
+	 */
 	public GrilleMots fixer(int m, String soluce){
 		Grille nouvelleGrille = grille.copy();
 		Mot lemot = this.getMots().get(m);
