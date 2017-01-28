@@ -20,6 +20,7 @@ public class GrillePotentiel {
 		dicoMot = dico;
 		initialisationDomaineDico( dicoMot );
 		filtreParLettreDico();
+		this.propage();
 	}
 
 	public GrillePotentiel(GrilleMots grille, Dictionnaire dico , List<Dictionnaire> motsPot ){
@@ -28,6 +29,7 @@ public class GrillePotentiel {
 		dicoMot = dico;
 		this.motsPot = motsPot;
 		filtreParLettreDico();
+		this.propage();
 	}
 
 	/**
@@ -152,7 +154,15 @@ public class GrillePotentiel {
 	}
 	
 	private boolean propage(){
-		return false;
+		int mots_elimines;
+		while( true ){
+			mots_elimines = 0;
+			for( int i = 0 ; i < contraintes.size() ; i++ ){
+				mots_elimines += contraintes.get(i).reduce( this );
+			}
+			if( this.isDead() == true ) return false;
+			if( mots_elimines == 0 ) return true;
+		}
 		
 	}
 	
