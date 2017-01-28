@@ -69,6 +69,27 @@ public class Dictionnaire {
 		mots = cible;
 		return cpt;
 	}
+	
+	
+	/**
+	 * Retire les mots qui n'ont pas le caractère c à la iieme place.
+	 * Attention cette opÃ©ration modifie le Dictionnaire, utiliser copy() avant de filtrer pour ne pas perdre d'information.
+	 * @param le char c en question, et i la position 
+	 * @return le nombre de mots supprimees.
+	 */
+	public int filtreParLettre(char c, int i){
+		List<String> cible = new ArrayList<>();
+		int cpt = 0;
+		for (String mot : mots){
+			if(mot.charAt(i) == c) {
+				cible.add(mot);
+			} else {
+				cpt++;
+			}
+		}
+		mots = cible;
+		return cpt;
+	}
 
 	
 	@Override
@@ -100,10 +121,6 @@ public class Dictionnaire {
 		}
 		return dico;
 		
-	}
-	
-	public int filtreParLettre(char c, int i){
-		return 10;
 	}
 	
 }
