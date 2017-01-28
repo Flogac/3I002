@@ -20,6 +20,7 @@ public class GrillePotentiel {
 		dicoMot = dico;
 		initialisationDomaineDico( dicoMot );
 		filtreParLettreDico();
+		detection_contraintes();
 		this.propage();
 	}
 
@@ -29,6 +30,7 @@ public class GrillePotentiel {
 		dicoMot = dico;
 		this.motsPot = motsPot;
 		filtreParLettreDico();
+		detection_contraintes();
 		this.propage();
 	}
 
@@ -170,7 +172,7 @@ public class GrillePotentiel {
 		return contraintes;
 	}
 	
-	public void detextion_contraintes(){
+	public void detection_contraintes(){
 		IContrainte retour = null;
 		for( int i = 0 ; i < grilleMot.getNbHorizontal() ; i++ ){
 			for( int j = grilleMot.getNbHorizontal() ; j < grilleMot.getMots().size() ; j++ ){
