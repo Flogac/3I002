@@ -3,6 +3,7 @@ package pobj.motx.tme2;
 import java.util.ArrayList;
 import java.util.List;
 
+import pobj.motx.tme1.Case;
 import pobj.motx.tme1.GrilleMots;
 import pobj.motx.tme1.Mot;
 
@@ -17,6 +18,7 @@ public class GrillePotentiel {
 		System.out.println( grille.getMots().size());
 		dicoMot = dico;
 		initialisationDomaineDico( dicoMot );
+		filtreParLettreDico();
 	}
 
 	/**
@@ -29,18 +31,18 @@ public class GrillePotentiel {
 		motsTaille = trieDicoTaille( dico );
 		int tailleMotMax = motsTaille.size();
 		int motEnCoursTaille = 0 ;
-		// On récupère la liste des mots
+		// On recupere la liste des mots
 		List<Mot> listeMots = grilleMot.getMots();
 		// On passe un par un tous les mots
 		for( int i = 0 ; i < listeMots.size() ; i++ ){
 			motEnCoursTaille = listeMots.get(i).size();
 			if(motEnCoursTaille <= tailleMotMax){
-				/* On récupère le mot d'indice i listeMots.get(i)
-				 * On récupère sa taille listeMots.get(i).size()
-				 * On récupère le dictionnaire des mots qui 
-				 * correspondent à sa taille
+				/* On recupere le mot d'indice i listeMots.get(i)
+				 * On recupere sa taille listeMots.get(i).size()
+				 * On recupere le dictionnaire des mots qui 
+				 * correspondent a� sa taille
 				 * motsTaille.get(listeMots.get(i).size() - 1 )
-				 * On le met à l'indice i dans motsPot
+				 * On le met a� l'indice i dans motsPot
 				*/
 				motsPot.add(motsTaille.get(motEnCoursTaille  - 1 ));
 			} else { 
@@ -48,12 +50,42 @@ public class GrillePotentiel {
 			}
 		}
 	}
+	
+	
+	/**
+	 * Cette methode filtre la liste de dictionnaires motsPot
+	 * a partir de la liste de mots contenu dans grilleMot.
+	 * Pour chaque mots, on filtre son dictionnaire correspondant � travers
+	 * une double boucle : une pour parcourir la liste des mots, et une
+	 * pour parcourir la liste des lettres (ou case) de chaque mots.
+	 * Dans cette deuxieme boucle, si une lettre est presente, alors
+	 * on appelle la methode filtreParLettre. 
+	 */
+	private void filtreParLettreDico(){
+		List<Mot> mots = grilleMot.getMots();
+		for(int i = 0; i < mots.size(); i++){
+			System.out.println("le nombre de mots "+mots.size());
+			System.out.println("le nombre de mots dans le dico "+motsPot.get(i).size());
+			List<Case> lettres = mots.get(i).getLettres();
+			System.out.println("la taille d'un mot "+lettres.size());
+			if(lettres.size() == motsPot.get(i).get(i).length()){
+				System.out.println("bonne taille");
+			} else {
+				System.out.println("pas bonne taille");
+			}
+			for(int j = 0; j < lettres.size(); j++){
+				if(lettres.get(j).getChar()!=' '){
+					motsPot.get(i).filtreParLettre(lettres.get(j).getChar(), j);
+				}
+			}
+		}
+	}
 
 	
 	/**
-	 * On crée une liste de dictionnaires qui contiennent chacun la 
-	 * liste des mots d'une certaine taille. La taille correspond à 
-	 * l'indice plus un( premier indice : 0 , première taille : 1
+	 * On cree une liste de dictionnaires qui contiennent chacun la 
+	 * liste des mots d'une certaine taille. La taille correspond a� 
+	 * l'indice plus un( premier indice : 0 , premiere taille : 1
 	 * ).
 	 * @param dico
 	 * @return

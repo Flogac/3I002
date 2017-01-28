@@ -29,7 +29,7 @@ public class GrillePotentielTest {
 		assertEquals(5, gr.nbCol());
 		assertEquals(6, gr.nbLig());
 
-		// System.out.println(gr);
+		//System.out.println(gr);
 
 		GrilleMots grille = new GrilleMots(gr);
 

@@ -28,4 +28,7 @@ public class Mot {
 		lettres.add(c);
 	}
 	
+	public List<Case> getLettres(){
+		return lettres;
+	}
 }
