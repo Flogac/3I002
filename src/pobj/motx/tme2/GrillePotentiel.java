@@ -167,22 +167,8 @@ public class GrillePotentiel {
 		}
 		
 	}
-<<<<<<< HEAD
 	
-	public List<IContrainte> getContraintes(){
-		return contraintes;
-	}
-
- void detextion_contraintes(){
-=======
-
-	public List<IContrainte> getContraintes(){
-		return contraintes;
-	}
-	
-
 	public void detection_contraintes(){
->>>>>>> origin/master
 		IContrainte retour = null;
 		for( int i = 0 ; i < grilleMot.getNbHorizontal() ; i++ ){
 			for( int j = grilleMot.getNbHorizontal() ; j < grilleMot.getMots().size() ; j++ ){
@@ -192,13 +178,13 @@ public class GrillePotentiel {
 			}
 		}
 	}
-
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
+	
 	public GrilleMots getGrilleMots(){
 		return grilleMot;
+	}
+
+	public List<IContrainte> getContraintes() {
+		return contraintes;
 	}
 	
 }
