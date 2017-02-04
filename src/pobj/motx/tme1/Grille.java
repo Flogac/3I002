@@ -37,15 +37,6 @@ public class Grille {
 	
 	public String toString(){
 		String retour = GrilleLoader.serialize( this , false );
-		/*
-		StringBuilder retour = new StringBuilder();
-		for( int i = 0 ; i < hauteur ; i++ ){
-			for( int j = 0 ; j < largeur ; j++ ){
-				retour.append( leGrill [i][j].getChar());
-			}
-			if(i != (hauteur - 1 )) retour.append('\n');
-		}*/
-		System.out.println(retour.toString());
 		return retour.toString();
 	}
 	

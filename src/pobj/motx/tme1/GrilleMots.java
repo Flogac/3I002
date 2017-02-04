@@ -71,6 +71,10 @@ public class GrilleMots {
 		}
 		return retour.toString();
 	}
+	
+	public Grille getGrille(){
+		return grille;
+	}
 
 	/**
 	 * 
