@@ -2,6 +2,11 @@ package pobj.motx.tme2;
 
 import pobj.motx.tme1.Mot;
 
+/**
+ * Une contrainte de GrilleMot qui permet de 
+ * @author Florent
+ *
+ */
 public class CroixContrainte implements IContrainte {
 
 	int m1;

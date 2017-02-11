@@ -1,7 +1,15 @@
 package pobj.motx.tme1;
 
+/**
+ * Case d'une GrilleMot
+ * @author Florent
+ *
+ */
 public class Case {
 
+	/**
+	 * Contenance : ce que contient le 
+	 */
 	private char contenance = ' ';
 	private int abs;
 	private int ord;
