@@ -17,15 +17,16 @@ public class WordCount {
 	}
 	
 	public static void	wordcount(MultiSet<String> ms) throws IOException{
-		String file = "Truc.txt";
+		String file = "data/WarAndPeace.txt";
 		BufferedReader br = new BufferedReader( new FileReader(file));
 		String line;
 		while ( ( line = br.readLine() )!= null	) {
 			for	(String word : line.split("\\P{L}+")) {
-				System.out.println( word );
+				//System.out.println( word );
 				ms.add( word );
 			}
 		}
+		//System.out.print( ms.toString() + "\n");
 		System.out.print(ms.elements());
 		br.close();
 	}

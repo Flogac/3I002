@@ -82,19 +82,19 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 		return this.size;
 	}
 	
-	public class HashMultiSetIterator<T> implements Iterator<T>{
+	public class HashMultiSetIterator<G> implements Iterator<G>{
 		
 		private int iterateur = 0; //Pour compter le nombre de trace
 		
-		private T trace; // Pour m√©moriser l'objet
+		private G trace; // Pour m√©moriser l'objet
 		
-		private Set<T> array;  //Pour passer √† l'objet suivant.
+		private Set<G> array;  //Pour passer √† l'objet suivant.
 		
-		private HashMap<T, Integer> leSet; // Le Set qu'on it√®re.
+		private HashMap<G, Integer> leSet; // Le Set qu'on it√®re.
 		
-		private Iterator<T> arrayIterateur; // L'it√©rateur pour it√©rer le set qui permet de passer √† l'objet suivant.
+		private Iterator<G> arrayIterateur; // L'it√©rateur pour it√©rer le set qui permet de passer √† l'objet suivant.
 		
-		public HashMultiSetIterator(HashMultiSet<T> hashMultiSet) {
+		public HashMultiSetIterator(HashMultiSet<G> hashMultiSet) {
 			array = hashMultiSet.getSet().keySet();
 			leSet = hashMultiSet.getSet();
 			arrayIterateur = array.iterator();
@@ -115,7 +115,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 		 * @return
 		 */
 		@Override
-		public T next() {
+		public G next() {
 			if( iterateur != 0 ){
 				iterateur--;
 				return trace;
@@ -134,27 +134,84 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 	}
 
 	@Override
-	public Iterator iterator() {
+	public Iterator<T> iterator() {
 		return new HashMultiSetIterator<T>(this);
 	}
 
+	/**
+	 * Renvoie une liste des ÈlÈments par ordre de frÈquence.
+	 * Le plus frÈquent est ‡ l'indice 0, et le moins frÈquent est en queue de liste.
+	 */
 	@Override
 	public List<T> elements() {
+		List<T> tempo = new ArrayList<T>();
 		List<T> retour = new ArrayList<T>();
 		Set<T> array = this.getSet().keySet();
-		retour.addAll(array);
-		int[] tabNombre = new int[retour.size()];
-		for( int i = 0 ; i < tabNombre.length ; i++ ) tabNombre[i] = this.count(retour.get(i));
-		this.trie( retour, tabNombre , 0 , tabNombre.length - 1);
-		for( int i = 0 ; i < tabNombre.length ; i++ ){
-			System.out.println( tabNombre[i] );
+		tempo.addAll(array);
+		int[] tabNombre = new int[tempo.size()];
+		int[] tabIndex = new int[tempo.size()];
+		for( int i = 0 ; i < tabNombre.length ; i++ ) {
+			tabNombre[i] = this.count(tempo.get(i));
+			tabIndex[i] = i;
+		}
+		this.trie(tabIndex, tabNombre, 0 , tabIndex.length - 1);
+		for( int i = 0 ; i < tabIndex.length ; i++ ) {
+			retour.add(tempo.get(tabIndex[tabIndex.length - 1 - i]));
 		}
 		return retour;
 	}
+	
+	/**
+	 * Quicksort
+	 * @param tabIndex:tableau qui contient les index de tabNombre, le tableau que l'on trie
+	 * @param tabNombre:les donnÈes, il ne bouge pas
+	 * @param premier: premier indice traitÈ
+	 * @param dernier: dernier indice traitÈ
+	 */
+	private void trie(int[] tabIndex, int[] tabNombre, int premier, int dernier) {
+		if( premier < dernier ){
+			int p = this.partition( tabIndex , tabNombre , premier, dernier );
+			this.trie( tabIndex , tabNombre , premier , p - 1 );
+			this.trie( tabIndex, tabNombre, p + 1 , dernier);
+		}
+	}
+	
+	/**
+	 * Partition qui quicksort
+	 * @param tabIndex:tableau qui contient les index de tabNombre, le tableau que l'on trie
+	 * @param tabNombre:les donnÈes, il ne bouge pas
+	 * @param premier: premier indice traitÈ
+	 * @param dernier: dernier indice traitÈ
+	 * @return le prochain point ‡ partir duquel on va couper le tableau en deux.
+	 */
+	private int partition(int[] tabIndex, int[] tabNombre, int premier, int dernier) {
+		int pivot = tabNombre[tabIndex[dernier]];
+		int i = premier;
+		for ( int j = premier ; j < dernier ; j++ ){
+			if( tabNombre[tabIndex[j]] < pivot ){
+				this.echanger( tabIndex , i , j );
+				i++;
+			}
+		}
+		this.echanger( tabIndex , i , dernier );
+		return i;
+	}
 
-	private void trie(List<T> retour, int[] tabNombre, int premier, int dernier) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Fonction qui Èchange les valeurs de deux cases d'un tableau de int
+	 * @param tabIndex : la tableau dont on Èchange les valeurs
+	 * @param i: le premier indice
+	 * @param j: le second indice
+	 */
+	private void echanger(int[] tabIndex , int i, int j) {
+		if( tabIndex[i] == tabIndex[j]) return;
+		tabIndex[i] += tabIndex[j];// i = i + j , j = j
+		tabIndex[j] = tabIndex[i] - tabIndex[j]; // i = i+j , j = i
+		tabIndex[i] -= tabIndex[j];
+	}
+
+	public String toString(){
+		return leSet.toString();
 	}
 	
 }
