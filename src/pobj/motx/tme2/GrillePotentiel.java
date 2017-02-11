@@ -16,7 +16,6 @@ public class GrillePotentiel {
 	
 	public GrillePotentiel(GrilleMots grille, Dictionnaire dico){
 		grilleMot = grille;
-		System.out.println( grille.getMots().size());
 		dicoMot = dico;
 		initialisationDomaineDico( dicoMot );
 		filtreParLettreDico();
@@ -26,7 +25,7 @@ public class GrillePotentiel {
 
 	public GrillePotentiel(GrilleMots grille, Dictionnaire dico , List<Dictionnaire> motsPot ){
 		grilleMot = grille;
-		System.out.println( grille.getMots().size());
+		System.out.println( "Mots dans la grille : "+grille.getMots().size());
 		dicoMot = dico;
 		this.motsPot = motsPot;
 		filtreParLettreDico();
@@ -76,15 +75,7 @@ public class GrillePotentiel {
 	private void filtreParLettreDico(){
 		List<Mot> mots = grilleMot.getMots();
 		for(int i = 0; i < mots.size(); i++){
-			/*System.out.println("le nombre de mots "+mots.size());
-			System.out.println("le nombre de mots dans le dico "+motsPot.get(i).size());*/
 			List<Case> lettres = mots.get(i).getLettres();
-			/*System.out.println("la taille d'un mot "+lettres.size());
-			if(lettres.size() == motsPot.get(i).get(i).length()){
-				System.out.println("bonne taille");
-			} else {
-				System.out.println("pas bonne taille");
-			}*/
 			for(int j = 0; j < lettres.size(); j++){
 				if(lettres.get(j).getChar()!=' '){
 					motsPot.get(i).filtreParLettre(lettres.get(j).getChar(), j);
@@ -112,7 +103,6 @@ public class GrillePotentiel {
 			while( longueurMaxMotDico < leMot.length() ){
 				retour.add( new Dictionnaire() );
 				longueurMaxMotDico++;
-				//System.out.println("yolo"+longueurMaxMotDico);
 				
 			}
 			retour.get( leMot.length() - 1 ).add( leMot );
@@ -167,6 +157,12 @@ public class GrillePotentiel {
 		}
 		
 	}
+
+	
+	public List<IContrainte> getContraintes(){
+		return contraintes;
+	}
+
 	
 	public void detection_contraintes(){
 		IContrainte retour = null;
@@ -177,13 +173,10 @@ public class GrillePotentiel {
 			}
 		}
 	}
-	
+
 	public GrilleMots getGrilleMots(){
 		return grilleMot;
 	}
 
-	public List<IContrainte> getContraintes() {
-		return contraintes;
-	}
 	
 }

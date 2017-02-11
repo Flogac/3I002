@@ -50,4 +50,12 @@ public class EnsembleLettre {
 	public List<Character> getLettres(){
 		return lettres;
 	}
+	
+	public EnsembleLettre copy(){
+		EnsembleLettre copy = new EnsembleLettre();
+		for(int i = 0; i < lettres.size(); i++){
+			copy.lettres.set(i,lettres.get(i));
+		}
+		return copy;
+	}
 }
