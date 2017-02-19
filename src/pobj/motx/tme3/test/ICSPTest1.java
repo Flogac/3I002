@@ -1,7 +1,6 @@
 package pobj.motx.tme3.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -10,7 +9,6 @@ import pobj.motx.tme1.GrilleLoader;
 import pobj.motx.tme1.GrilleMots;
 import pobj.motx.tme2.Dictionnaire;
 import pobj.motx.tme2.GrillePotentiel;
-import pobj.motx.tme2.test.GrillePotentielTest;
 import pobj.motx.tme3.MotX;
 import pobj.motx.tme3.csp.CSPSolver;
 
@@ -136,7 +134,7 @@ public class ICSPTest1{
 	 * Ce test part d'un grille completement vierge contenant 124 mots, cela prend donc beaucoup
 	 * trop de temps à executer quand on test celui là, car beaucoup trop de possibilite.
 	 */
-	/*@Test
+	@Test
 	public void testLarge() {
 		Dictionnaire gut = Dictionnaire.loadDictionnaire("data/frgut.txt");
 		Grille gr = GrilleLoader.loadGrille("data/large.grl");
@@ -155,7 +153,7 @@ public class ICSPTest1{
 			problem = (MotX) solution.solve(problem);
 		}
 
-	}*/
+	}
 
 	@Test
 	public void testLarge3() {

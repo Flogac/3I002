@@ -1,4 +1,4 @@
-package pobj.tme4;
+package pobj.tme5;
 
 import java.util.AbstractCollection;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -32,6 +33,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 	
 	@Override
 	public boolean add(T e, int count){
+		if(count <= 0) throw new IllegalArgumentException("Il faut entrer un nombre strictement positif");
 		if(hash.containsKey(e) == true)
 			hash.put(e, hash.get(e) + count);
 		else 
@@ -60,21 +62,23 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 				hash.put((T)e, hash.get(e) - 1);
 			size--;
 		}
-		return true;
+		return false; //on n'a donc pas modifie nos donnees
 	}
 	
 	@Override
 	public boolean remove(Object e, int count){
+		if(count <= 0) throw new IllegalArgumentException("Il faut entrer un nombre strictement positif");
 		if(hash.containsKey(e) == true){
 			int prev_value = hash.get(e);
 			int new_value = prev_value - count;
 			if(new_value <= 0)
 				size = size - hash.remove(e);
-			else
+			else{
 				hash.put((T)e, new_value);
 				size = size - count;
+			}
 		}
-		return true;
+		return false; //on n'a donc pas modifie nos donnes
 	}
 	
 	@Override
@@ -90,7 +94,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 	@Override
 	public int size(){ return size; }
 	
-	public HashMap<T,Integer> gethashMap(){ return hash;}
+	public HashMap<T,Integer> getHashMap(){ return hash;}
 	
 	public Iterator<T> iterator() {
 		return new HashMultiSetIterator<T>(this);
@@ -103,6 +107,65 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 			System.out.print(l.get(i)+" ");
 		System.out.print("\n");
 		return l;
+	}
+	
+	public String toString(){
+		StringBuilder b = new StringBuilder();
+		Iterator<Entry<T,Integer>> iter; // on utilise un iterator pour parcourir chaque element de hashmap l'ajouter au StringBuilder.
+		Entry<T,Integer> currentEntry; // on utilise l'iterator du dessus sur un Entry<T,Integer>.
+		iter = hash.entrySet().iterator();
+		b.append("[");
+		try{
+			currentEntry = iter.next();
+		}catch (NoSuchElementException e){
+			b.append("]");
+			return b.toString();
+		}
+		while(iter.hasNext() == true){
+			b.append(currentEntry.getKey()+":"+currentEntry.getValue()+"; ");
+			currentEntry = iter.next();
+		}
+		b.append(currentEntry.getKey()+":"+currentEntry.getValue()+"]");
+		return b.toString();
+	}
+	
+	/**
+	 * Verifie la coherence de la structure interne de notre classe HashMultiSet
+	 * Deux conditions sont a verifier :
+	 * - l'attribut size soit egale au nombre d'occurence totale
+	 * - les occurences sont forcement positif
+	 * On utilise pour cela un iterator sur une collection d'integers.
+	 */
+	public boolean isConsistent(){
+		Iterator<Integer> iter; // on utilise un iterator pour parcourir chaque element de hashmap pour pouvoir verifier les conditions
+		Collection<Integer> values = hash.values(); // on utilise l'iterator du dessus sur une collection d'entier extraite de hashMap.
+		iter = values.iterator();
+		try{
+			int currentValue = iter.next();
+			int size = 0;
+			while(iter.hasNext() == true){
+				if(currentValue <= 0){
+					return false;
+				}
+				size = size + currentValue;
+				currentValue = iter.next();
+				
+			}
+			//lorsque l'on sort de la boucle, on n'a pas teste la dernier valeur, il faut donc le faire apres
+			if(currentValue <= 0){
+				return false;
+			}
+			size = size + currentValue;
+			if(size == this.size){
+				return true;
+			}
+			return false;
+		} catch (NoSuchElementException e){ //la liste de values est vide, donc le dictionnaire aussi
+			if (this.size == 0) 
+				return true;
+			else
+				return false;
+		}
 	}
 	
 
@@ -124,7 +187,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 		private Iterator<Entry<T,Integer>> internIter;
 		
 		public HashMultiSetIterator(HashMultiSet<T> hash){
-			hashMap = hash.gethashMap(); // on stock notre hash
+			hashMap = hash.getHashMap(); // on stock notre hash
 			internIter = hashMap.entrySet().iterator(); // on cree un iterator sur des paires <Key,Value>
 			currentEntry = internIter.next(); // on stock la premiere paire <Key,Value> dans un entry
 			currentObjectOccurence = currentEntry.getValue(); // on stock le nombre d'occurence de Key 
@@ -134,7 +197,7 @@ public class HashMultiSet<T> extends AbstractCollection<T> implements MultiSet<T
 		}
 		@Override
 		public boolean hasNext() {
-			if(traveled <= hashMap.size()){
+			if(traveled <= size()){
 				return true;
 			}
 			return false;

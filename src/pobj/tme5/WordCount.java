@@ -1,4 +1,4 @@
-package pobj.tme4;
+package pobj.tme5;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,20 +10,14 @@ public class WordCount {
 	public static void main (String [] arg){
 		Chrono chrono = new Chrono(); 
 		HashMultiSet<String> ms = new HashMultiSet<String>();
+		MultiSetDecorator<String> checkedMS = new MultiSetDecorator<String>(ms);
 		try {
 			wordcount( ms );
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		chrono.stop(); 
-		Chrono chrono2 = new Chrono();
-		NaiveMultiSet<String> ms2 = new NaiveMultiSet<String>();
-		try {
-			wordcount( ms2 );
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		chrono2.stop();
+		} 
+		System.out.println(ms);
+		chrono.stop();
 	}
 		
 	public static void	wordcount(MultiSet<String> ms) throws IOException{
@@ -32,10 +26,9 @@ public class WordCount {
 		String line;
 		while ( ( line = br.readLine() )!= null	) {
 			for	(String word : line.split("\\P{L}+")) {
-				ms.add( word );
+				ms.add(word,1); // Usage de la methode avec l'argument 1 (count) pour tester les exceptions.
 			}
 		}
-		ms.elements();
 		br.close();
 	}
 }

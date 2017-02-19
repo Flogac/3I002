@@ -1,4 +1,4 @@
-package pobj.tme4;
+package pobj.tme5;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,5 +11,6 @@ public interface MultiSet<T> extends Collection<T>{
 	public int count(T o);
 	public void clear();	
 	public int size();
-	List<T> elements();
+	public boolean isConsistent();
+	public List<T> elements();
 }
