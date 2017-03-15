@@ -13,6 +13,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pobj.pinboard.document.Board;
 import pobj.pinboard.editor.tools.EllTool;
@@ -29,6 +30,7 @@ public class EditorWindow implements EditorInterface {
 	private Board planche = new Board();
 	private Stage stage;
 	private Tool outil = new RectTool();
+	private Color color = Color.BLUE;
 	
 	public EditorWindow(Stage stage) {
 		EditorWindow ceci = this;
@@ -57,12 +59,17 @@ public class EditorWindow implements EditorInterface {
 		);
 		this.newBarreMenu();
 		this.newToolBar();
-		this.statut.textProperty().set("Zone de dessin");
+		this.setStatut();
 		this.layout.getChildren().addAll(this.barreMenu , new Separator() ,this.barreBouttons,new Separator(),this.zoneDessin,new Separator(),this.statut);
 		Scene scene = new Scene(this.layout);
 		this.stage.setScene(scene);
 		this.draw();
 		this.stage.show();
+	}
+
+	private void setStatut() {
+		this.statut.textProperty().set("Zone de dessin" + ":" + this.outil.getName() + "/" + this.color.toString());
+		
 	}
 
 	protected void buttonReleased(MouseEvent e) {
@@ -80,7 +87,8 @@ public class EditorWindow implements EditorInterface {
 
 	protected void buttonPressed(MouseEvent e) {
 		System.out.println("Pressed" + " " + e.getSceneX() + " " + e.getSceneY());
-		this.outil.press( this , e );
+		this.outil.press(this, e );
+		this.outil.setColor(this.color);
 		
 	}
 
@@ -92,12 +100,14 @@ public class EditorWindow implements EditorInterface {
 				new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent e){
 				ceci.outil = new RectTool();
+				ceci.setStatut();
 			}
 		});
 		bouttonEll.setOnAction( 
 				new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent e){
 				ceci.outil = new EllTool();
+				ceci.setStatut();
 			}
 		});
 		this.barreBouttons = new ToolBar( bouttonRect , bouttonEll );
@@ -105,7 +115,44 @@ public class EditorWindow implements EditorInterface {
 
 	private void newBarreMenu() {
 		Menu menu1 = this.newMenuFile() ;
-		this.barreMenu  = new MenuBar(menu1);
+		Menu menu2 = this.newMenuColor();
+		this.barreMenu  = new MenuBar(menu1 , menu2);
+	}
+
+	private Menu newMenuColor() {
+		EditorWindow ceci = this;
+		Menu menu = new Menu("Couleur");
+		MenuItem bleu = new MenuItem("Bleu");
+		MenuItem jaune = new MenuItem("Jaune");
+		MenuItem rouge = new MenuItem( "Rouge");
+		bleu.setOnAction( 
+				new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent e){
+				ceci.setColor( Color.BLUE);
+				ceci.setStatut();
+			}
+		});
+		jaune.setOnAction( 
+				new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent e){
+				ceci.setColor( Color.YELLOW);
+				ceci.setStatut();
+			}
+		});
+		rouge.setOnAction( 
+				new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent e){
+				ceci.setColor( Color.RED );
+				ceci.setStatut();
+			}
+		});
+		menu.getItems().addAll(  bleu, jaune , rouge );
+		return menu;
+	}
+
+	protected void setColor(Color red) {
+		this.color = red;
+		
 	}
 
 	private Menu newMenuFile() {

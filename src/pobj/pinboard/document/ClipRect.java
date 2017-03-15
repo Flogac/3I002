@@ -13,7 +13,7 @@ public class ClipRect extends AbstractClip implements Clip {
 	public void draw(GraphicsContext ctx) {
 		//System.out.println( "Rect" + this.getBottom() + this.getLeft() + this.getRight() + this.getTop() + this.getColor() );
 		ctx.setFill( this.getColor());
-		ctx.fillRect( this.getLeft() , this.getTop(), -this.getTop()+this.getBottom(), this.getRight() - this.getLeft() );		
+		ctx.fillRect(this.getLeft(), this.getTop(), Math.abs(this.getRight()-this.getLeft()), Math.abs(this.getTop()-this.getBottom()));		
 	}
 
 	@Override

@@ -11,8 +11,9 @@ public class ClipEllipse extends AbstractClip implements Clip{
 
 	@Override
 	public void draw(GraphicsContext ctx) {
-		ctx.setFill( this.getColor());
-		ctx.fillOval(this.getTop(), this.getLeft() , (this.getRight()-this.getLeft())/2 , ( this.getBottom() - this.getTop())/2);
+		ctx.setFill(this.getColor());
+		ctx.fillOval( ((this.getLeft()+this.getRight())/2) - ((this.getRight()-this.getLeft()) /2), ((this.getTop()+this.getBottom())/2) - ((this.getBottom()-this.getTop() )/2),
+				(this.getRight()-this.getLeft()), (this.getBottom()-this.getTop()));
 		
 	}
 
